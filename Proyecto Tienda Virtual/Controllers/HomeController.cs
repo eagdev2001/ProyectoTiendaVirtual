@@ -8,7 +8,7 @@ namespace Proyecto_Tienda_Virtual.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Productoes");
         }
 
         public IActionResult Privacy()
