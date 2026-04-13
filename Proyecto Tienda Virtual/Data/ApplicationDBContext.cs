@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Proyecto_Tienda_Virtual.ModelsFromDb;
 
 namespace Proyecto_Tienda_Virtual.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
