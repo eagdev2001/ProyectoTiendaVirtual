@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Tienda_Virtual.ModelsFromDb;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace Proyecto_Tienda_Virtual.Controllers
 {
@@ -47,6 +49,30 @@ namespace Proyecto_Tienda_Virtual.Controllers
         }
 
         // GET: Productoes/Create
+        public IActionResult AgregarAlCarrito(int id)
+        {
+            var producto = _context.Productos.Find(id);
+            List<CarritoItem> carrito;
+            var session = HttpContext.Session.GetString("Carrito");
+            if (session != null)
+            {
+                carrito = JsonConvert.DeserializeObject<List<CarritoItem>>(session);
+            } else
+            {
+                carrito = new List<CarritoItem>();
+            }
+            carrito.Add(new CarritoItem
+            {
+                ProductoId = producto.ProductoId,
+                Nombre = producto.DescripcionArt,
+                Precio = producto.ValorMonetario,
+                Cantidad = 1
+            });
+            HttpContext.Session.SetString("Carrito", JsonConvert.SerializeObject(carrito));
+
+            return RedirectToAction("Index");
+        }
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -57,11 +83,13 @@ namespace Proyecto_Tienda_Virtual.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ProductoId,DescripcionArt,ValorMonetario,ExistenciasAct")] Proyecto_Tienda_Virtual.ModelsFromDb.Producto producto)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(producto);
+                producto.ValorMonetario = producto.ValorMonetario * 1.15; //Aqui aplicamos un aumento del 15% al valor monetario del producto
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -69,7 +97,7 @@ namespace Proyecto_Tienda_Virtual.Controllers
             return View(producto);
         }
 
-        // GET: Productoes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,7 +105,7 @@ namespace Proyecto_Tienda_Virtual.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Productos.FindAsync(id); // Fetching product by ID
+            var producto = await _context.Productos.FindAsync(id); 
             if (producto == null)
             {
                 return NotFound();
@@ -85,11 +113,10 @@ namespace Proyecto_Tienda_Virtual.Controllers
             return View(producto);
         }
 
-        // POST: Productoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductoId,DescripcionArt,ValorMonetario,ExistenciasAct")] Proyecto_Tienda_Virtual.ModelsFromDb.Producto producto)
         {
             if (id != producto.ProductoId)
@@ -121,6 +148,7 @@ namespace Proyecto_Tienda_Virtual.Controllers
         }
 
         // GET: Productoes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,6 +169,7 @@ namespace Proyecto_Tienda_Virtual.Controllers
         // POST: Productoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var producto = await _context.Productos.FindAsync(id);

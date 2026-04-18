@@ -11,11 +11,15 @@ namespace Proyecto_Tienda_Virtual.Controllers
             return RedirectToAction("Index", "Productoes");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Copyright()    
         {
             return View();
         }
 
+        public IActionResult Integrantes()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
