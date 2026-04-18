@@ -51,21 +51,6 @@ namespace Proyecto_Tienda_Virtual.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCTOS",
-                columns: table => new
-                {
-                    ProductoID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DescripcionART = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    ValorMonetario = table.Column<double>(type: "float", nullable: false),
-                    ExistenciasACT = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PRODUCTOS", x => x.ProductoID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -171,27 +156,6 @@ namespace Proyecto_Tienda_Virtual.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "VENTAS",
-                columns: table => new
-                {
-                    TransaccionID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductoID = table.Column<int>(type: "int", nullable: false),
-                    CantidadADQ = table.Column<int>(type: "int", nullable: true),
-                    FechaHora = table.Column<DateTime>(type: "datetime", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VENTAS", x => x.TransaccionID);
-                    table.ForeignKey(
-                        name: "FK_VENTAS_PRODUCTOS_ProductoID",
-                        column: x => x.ProductoID,
-                        principalTable: "PRODUCTOS",
-                        principalColumn: "ProductoID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -230,11 +194,6 @@ namespace Proyecto_Tienda_Virtual.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VENTAS_ProductoID",
-                table: "VENTAS",
-                column: "ProductoID");
         }
 
         /// <inheritdoc />
@@ -256,16 +215,10 @@ namespace Proyecto_Tienda_Virtual.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "VENTAS");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "PRODUCTOS");
         }
     }
 }

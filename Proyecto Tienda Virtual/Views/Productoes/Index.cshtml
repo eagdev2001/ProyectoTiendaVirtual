@@ -7,7 +7,10 @@
 <h1>Menú Principal</h1>
 
 <p>
+    @if (User.IsInRole("Admin"))
+    {
     <a asp-action="Create">Ingresar nuevo articulo</a>
+    }
 </p>
 <p>Cantidad de Articulos totales: @ViewBag.ProductCount</p>
 <table class="table">
@@ -32,15 +35,22 @@
                 @Html.DisplayFor(modelItem => item.DescripcionArt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValorMonetario)
+                @item.ValorMonetario.ToString("C", new System.Globalization.CultureInfo("es-CR"))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExistenciasAct)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductoId">Editar</a> |
+                @if (User.IsInRole("Admin"))
+                {
+                <a asp-action="Edit" asp-route-id="@item.ProductoId">Editar</a>
+                }
                 <a asp-action="Details" asp-route-id="@item.ProductoId">Detalles</a> |
+                @if (User.IsInRole("Admin"))
+                {
                 <a asp-action="Delete" asp-route-id="@item.ProductoId">Eliminar</a>
+                }
+                <a asp-controller="Productoes" asp-action="AgregarAlCarrito" asp-route-id="@item.ProductoId" class="btn btn-success">Agregar al carrito</a>
             </td>
         </tr>
 }

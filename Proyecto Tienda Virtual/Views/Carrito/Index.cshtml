@@ -1,0 +1,32 @@
+@model List<CarritoItem>
+
+<h2>Carrito de Compras</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>El carrito está vacío</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Precio.ToString("C")</td>
+                    <td>@item.Cantidad</td>
+                    <td>@(item.Precio* item.Cantidad)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

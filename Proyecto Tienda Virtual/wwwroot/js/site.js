@@ -18,3 +18,13 @@
     localStorage.setItem('theme', next);
   });
 })();
+
+/*(function togglePassword() {
+    const passwordInput = document.getElementById('passwordInput');
+    if (!passwordInput) return;
+
+    window.togglePassword = function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    };
+})();*/

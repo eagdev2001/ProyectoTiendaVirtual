@@ -7,8 +7,15 @@ using Proyecto_Tienda_Virtual.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddSession();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedAccount = false;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -22,6 +29,8 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -51,6 +60,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Productoes}/{action=Index}/{id?}")
     .WithStaticAssets();
-
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedData.Initialize(services);
+}
 
 app.Run();

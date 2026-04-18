@@ -17,7 +17,7 @@ namespace Proyecto_Tienda_Virtual.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.5")
+                .HasAnnotation("ProductVersion", "10.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -249,7 +249,7 @@ namespace Proyecto_Tienda_Virtual.Migrations
 
                     b.HasKey("ProductoId");
 
-                    b.ToTable("PRODUCTOS");
+                    b.ToTable("PRODUCTOS", (string)null);
                 });
 
             modelBuilder.Entity("Proyecto_Tienda_Virtual.ModelsFromDb.Venta", b =>
@@ -276,7 +276,7 @@ namespace Proyecto_Tienda_Virtual.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("VENTAS");
+                    b.ToTable("VENTAS", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
