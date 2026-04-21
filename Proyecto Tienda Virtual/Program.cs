@@ -6,7 +6,7 @@ using Proyecto_Tienda_Virtual.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Añadir servicios al contenedor.
+// Se le agrega servicios al contenedor.
 builder.Services.AddSession();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
@@ -20,7 +20,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registro por medio de scaffold para añadir el contexto de la base de datos
+// Se registra el contexto estructurado para la bade de datos existente.
 builder.Services.AddDbContext<TienDaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -41,10 +41,11 @@ app.MapControllerRoute (
     );
 
 app.MapRazorPages();
-// Configuracion de la peticion del HTTP
+// Configurar la canalizacion de solicitudes de HTTP..
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    
     app.UseHsts();
 }
 

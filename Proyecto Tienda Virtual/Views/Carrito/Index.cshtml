@@ -1,5 +1,6 @@
 @model List<CarritoItem>
-
+//Este código es una vista que muestra el carrito de compras. Si no hay productos, indica que está vacío
+; si hay, los lista en una tabla con nombre, precio, cantidad y total por producto.
 <h2>Carrito de Compras</h2>
 
 @if (Model == null || !Model.Any())
@@ -7,7 +8,7 @@
     <p>El carrito está vacío</p>
 }
 else
-{
+{//Este código es una vista que muestra el carrito de compras. Si no hay productos, indica que está vacío; si hay
     <table class="table">
         <thead>
             <tr>
