@@ -29,6 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Copyright">Copyright</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Carrito" asp-action="Historial">Historial</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav me-3">
                         @if (User.Identity.IsAuthenticated)
@@ -56,7 +59,7 @@
                         <a class="btn btn-warning me-3" href="/Productoes">Modo Admin</a>
                 }
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-succes" href="/Carrito">🛒 Carrito </a>
+                    <a class="nav-link text-dark" href="/Carrito">🛒 Carrito </a>
                 </div>
                 <div class="d-flex align-items-center">
                     <button id="theme-toggle" class="btn btn-outline-secondary btn-sm me-3" title="Toggle theme">🌙</button>

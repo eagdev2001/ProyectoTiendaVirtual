@@ -1,0 +1,23 @@
+@model List<Proyecto_Tienda_Virtual.ModelsFromDb.Venta>
+
+<h2>Historial de ventas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.Producto.DescripcionArt</td>
+                <td>@v.CantidadAdq</td>
+                <td>@v.FechaHora</td>
+            </tr>
+        }
+    </tbody>
+</table>
