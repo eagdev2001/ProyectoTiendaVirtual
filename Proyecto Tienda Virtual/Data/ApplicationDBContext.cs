@@ -12,5 +12,7 @@ namespace Proyecto_Tienda_Virtual.Data
         }
 
         public DbSet<Producto> Productos { get; set; }
+
+        public DbSet<Venta> Ventas { get; set; }
     }
 }

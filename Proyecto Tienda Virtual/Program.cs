@@ -6,7 +6,7 @@ using Proyecto_Tienda_Virtual.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Añadir servicios al contenedor.
 builder.Services.AddSession();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
@@ -20,7 +20,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register scaffolded context for the existing database
+// Registro por medio de scaffold para añadir el contexto de la base de datos
 builder.Services.AddDbContext<TienDaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -41,11 +41,10 @@ app.MapControllerRoute (
     );
 
 app.MapRazorPages();
-// Configure the HTTP request pipeline.
+// Configuracion de la peticion del HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

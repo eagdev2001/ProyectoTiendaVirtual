@@ -27,6 +27,7 @@ else
                     <td>@(item.Precio* item.Cantidad)</td>
                 </tr>
             }
+            <a class="btn btn-success" asp-controller="Carrito" asp-action="FinalizarCompra">Finaliza Compra</a>
         </tbody>
     </table>
 }
